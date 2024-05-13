@@ -1,0 +1,130 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: TestSumatoria
+      id: testsumatoria
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestSumatoria
+        setup-command: ''
+        command: go test ./... -run ^TestSumatoria$
+        timeout: 10
+        max-score: 1
+    - name: TestUnionInterseccion
+      id: testunioninterseccion
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestUnionInterseccion
+        setup-command: ''
+        command: go test ./... -run ^TestUnionInterseccion$
+        timeout: 10
+        max-score: 1
+    - name: TestSumaVectorialProductoEscalar
+      id: testsumavectorialproductoescalar
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestSumaVectorialProductoEscalar
+        setup-command: ''
+        command: go test ./... -run ^TestSumaVectorialProductoEscalar$
+        timeout: 10
+        max-score: 1
+    - name: TestFactorial
+      id: testfactorial
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestFactorial
+        setup-command: ''
+        command: go test ./... -run ^TestFactorial$
+        timeout: 10
+        max-score: 1
+    - name: TestEsPrimo
+      id: testesprimo
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestEsPrimo
+        setup-command: ''
+        command: go test ./... -run ^TestEsPrimo$
+        timeout: 10
+        max-score: 1
+    - name: TestProducto
+      id: testproducto
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestProducto
+        setup-command: ''
+        command: go test ./... -run ^TestProducto$
+        timeout: 10
+        max-score: 1
+    - name: TestCirculo
+      id: testcirculo
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestCirculo
+        setup-command: ''
+        command: go test ./... -run ^TestCirculo$
+        timeout: 10
+        max-score: 1
+    - name: TestValidarOpcion
+      id: testvalidaropcion
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestValidarOpcion
+        setup-command: ''
+        command: go test ./... -run ^TestValidarOpcion$
+        timeout: 10
+        max-score: 1
+    - name: TestMinMax
+      id: testminmax
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestMinMax
+        setup-command: ''
+        command: go test ./... -run ^TestMinMax$
+        timeout: 10
+        max-score: 1
+    - name: TestImprimirPolinomio
+      id: testimprimirpolinomio
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestImprimirPolinomio
+        setup-command: ''
+        command: go test ./... -run ^TestImprimirPolinomio$
+        timeout: 10
+        max-score: 1
+    - name: TestSwap
+      id: testswap
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestSwap
+        setup-command: ''
+        command: go test ./... -run ^TestSwap$
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTSUMATORIA_RESULTS: ${{steps.testsumatoria.outputs.result}}
+        TESTUNIONINTERSECCION_RESULTS: ${{steps.testunioninterseccion.outputs.result}}
+        TESTSUMAVECTORIALPRODUCTOESCALAR_RESULTS: ${{steps.testsumavectorialproductoescalar.outputs.result}}
+        TESTFACTORIAL_RESULTS: ${{steps.testfactorial.outputs.result}}
+        TESTESPRIMO_RESULTS: ${{steps.testesprimo.outputs.result}}
+        TESTPRODUCTO_RESULTS: ${{steps.testproducto.outputs.result}}
+        TESTCIRCULO_RESULTS: ${{steps.testcirculo.outputs.result}}
+        TESTVALIDAROPCION_RESULTS: ${{steps.testvalidaropcion.outputs.result}}
+        TESTMINMAX_RESULTS: ${{steps.testminmax.outputs.result}}
+        TESTIMPRIMIRPOLINOMIO_RESULTS: ${{steps.testimprimirpolinomio.outputs.result}}
+        TESTSWAP_RESULTS: ${{steps.testswap.outputs.result}}
+      with:
+        runners: testsumatoria,testunioninterseccion,testsumavectorialproductoescalar,testfactorial,testesprimo,testproducto,testcirculo,testvalidaropcion,testminmax,testimprimirpolinomio,testswap
